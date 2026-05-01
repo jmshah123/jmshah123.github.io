@@ -48,7 +48,7 @@ function chk_msg(which){
 								<li class=""><a href="index.htm"> home</a></li>
 								<li class=""><a href="trust.htm">trust</a></li>
 								<li class=""><a href="history.htm">history</a></li>
-								<li ><a href="mailto:jignesh.c.shah@capgemini.com">contact </a></li>
+								<li ><a href="mailto:jmshah123@gmail.com">contact </a></li>
 						</ul>
 				</div>
 		</div>
@@ -66,12 +66,12 @@ function chk_msg(which){
 												<tr>
 														<td>&nbsp;</td>
 														<?php 
-															$email_to = "jignesh.c.shah@capgemini.com"; 
+															$email_to = "jmshah123@gmail.com"; 
 															$mailsubject = "An email from BhurakhiaDada's Website"; 
 															if (isset($name) && isset($email) && (mail($email_to, $mailsubject, "<html><body>\n \n  From : ".$name."\n Email Id : <a href=\"".$email."\">".$email."</a>\n Message : ".$messg."</body></html>", "")) )
 																print("<td>We have received your opinion(s).<br> You will receive a reply as soon as possible.<br>We will be pleased to hear more from you for this website of Bhurakhiadada.</td>");
 															elseif (isset($name) && isset ($email))
-																print("<td>There was an error while sending your opinion(s)... Please email the <a href='jignesh.c.shah@capgemini.com'>webmaster at jignesh.c.shah@capgemini.com </a></td>");
+																print("<td>There was an error while sending your opinion(s)... Please email the <a href='jmshah123@gmail.com'>webmaster at jmshah123@gmail.com </a></td>");
 															else {
 																$name="";
 																$email="@.";
@@ -117,10 +117,10 @@ function chk_msg(which){
 						<li>
 								<h2>The Temple</h2>
 								<ul>
-										<li><a href="photo_gallery.php">Photo Gallery</a></li>
+										<li><a href="#photo_gallery.php">Photo Gallery</a></li>
 										<li><a href="#donate.htm">Donate to Temple</a></li>
 										<li><a href="#plan.htm">Plan (what lies where)</a></li>
-										<li><a href="email.php">Feedback</a></li>
+										<li><a href="#email.php">Feedback</a></li>
 								</ul>
 						</li>
 						</li>
