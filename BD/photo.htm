@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photo Gallery</title>
+<link href="css/gallery.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+<div class="gallery" id="gallery">
+    <!-- Images will be inserted by JavaScript -->
+</div>
+
+<!-- Lightbox container -->
+<div id="lightbox" class="lightbox">
+    <span class="close" id="closeBtn">&times;</span>
+    <button class="nav-btn prev-btn" id="prevBtn">&#10094;</button>
+    <img id="lightbox-img" src="" alt="Enlarged view">
+    <button class="nav-btn next-btn" id="nextBtn">&#10095;</button>
+</div>
+
+<script>
+    // Array of image URLs (replace with your own)
+    const images = [
+       './images/Gallery/hanuman003.jpg',
+        './images/Gallery/hanuman004.jpg',
+        './images/Gallery/hanuman005.jpg',
+        './images/Gallery/hanuman006.jpg',
+        './images/Gallery/hanuman007.jpg',
+        './images/Gallery/hanuman008.jpg',
+        './images/Gallery/hanuman009.jpg',
+        './images/Gallery/hanuman010.jpg',
+        './images/Gallery/hanuman011.jpg',
+        './images/Gallery/hanuman012.jpg',
+        './images/Gallery/hanuman013.jpg',
+        './images/Gallery/hanuman014.jpg'
+    ];
+
+    const gallery = document.getElementById("gallery");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const closeBtn = document.getElementById("closeBtn");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    let currentIndex = 0;
+
+    // Create gallery images dynamically
+    images.forEach((src, index) => {
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = "Gallery image";
+        img.loading = "lazy"; // Lazy loading for performance
+        img.addEventListener("click", () => openLightbox(index));
+        gallery.appendChild(img);
+    });
+
+    function openLightbox(index) {
+        currentIndex = index;
+        lightboxImg.src = images[currentIndex];
+        lightbox.classList.add("active");
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove("active");
+    }
+
+    function showPrev() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        lightboxImg.src = images[currentIndex];
+    }
+
+    function showNext() {
+        currentIndex = (currentIndex + 1) % images.length;
+        lightboxImg.src = images[currentIndex];
+    }
+
+    // Event listeners
+    closeBtn.addEventListener("click", closeLightbox);
+    prevBtn.addEventListener("click", showPrev);
+    nextBtn.addEventListener("click", showNext);
+
+    // Close when clicking outside image
+    lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) closeLightbox();
+    });
+
+    // Keyboard navigation
+    document.addEventListener("keydown", (e) => {
+        if (!lightbox.classList.contains("active")) return;
+        if (e.key === "ArrowLeft") showPrev();
+        if (e.key === "ArrowRight") showNext();
+        if (e.key === "Escape") closeLightbox();
+    });
+</script>
+
+</body>
+</html>

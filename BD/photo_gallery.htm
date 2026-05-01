@@ -1,22 +1,3 @@
-<?php
-	$paging = '';
-	$g['Path'] = '/images/Gallery/';
-	$f = opendir(getcwd().$g['Path']);
-	while($l=readdir($f))
-	{
-		if(!('.'==$l || '..'==$l))
-		{
-			$g['Files'][]=$l;
-			$g['paging'].= "\n\r".
-					'<a href="javascript:void(0)" onclick="javascript:swap(\''.
-					count(($g['Files']))
-					.'\');">'.count(($g['Files'])).'</a> ';
-		}
-	}
-	
-	//$fl=($_REQUEST['fl'])?$_REQUEST['fl']:2;
-	//$fl=array_key_exists($_REQUEST['fl'], $g['Files'])?$fl:2;
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/Stardust.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
@@ -33,22 +14,11 @@
 <title>Official web-site of Bhurakhia Hanuman Dada Temple, INDIA</title>
 <script language="javascript" src="/js/jquery-1.7.2.min.js">
 </script>
-<script language="javascript">
-imgArray=<?php print json_encode($g['Files']);?>;
-d='';y='';
-function swap(wht)
-{
-	y=location.pathname.split('/');
-	y.length--;
-	d = document.images.photo;
-	d.src=y.join('/')+"<?php print addslashes($g['Path']) ;?>"+imgArray[--wht];
-	d.width=500;
-}
-</script>
 <!-- InstanceEndEditable --><!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link href="css/css.css" rel="stylesheet" type="text/css" />
+<link href="css/gallery.css" rel="stylesheet" type="text/css" />
 <!-- InstanceParam name="MainBody02" type="boolean" value="true" --><!-- InstanceParam name="PageTitle" type="boolean" value="true" --><!-- InstanceParam name="classHome" type="text" value="active" --><!-- InstanceParam name="classTrust" type="text" value="" --><!-- InstanceParam name="classHistory" type="text" value="" --><!-- InstanceParam name="Marriage" type="boolean" value="false" -->
 </head>
 <body>
@@ -80,16 +50,19 @@ function swap(wht)
 						<!-- InstanceEndEditable -->
 						<div class="entry">
 								<div class="meta"><!-- InstanceBeginEditable name="MainBody01" -->
-										<table width="100%" border="1" bordercolor="#FFE3CE" cellpadding="3" cellspacing="5">
-												<tr>
-														<td align="right"><?php print $g['paging']; ?></td>
-												</tr>
-												<tr>
-														<td align="center"><img border="1" src="" name="photo" /></td>
-												</tr>
-										</table>
-										<script language="javascript">swap(1);</script>
-										<!-- InstanceEndEditable --></div>
+                                    <div class="gallery" id="gallery">
+                                        <!-- Images will be inserted by JavaScript -->
+                                    </div>
+
+                                    <!-- Lightbox container -->
+                                    <div id="lightbox" class="lightbox">
+                                        <span class="close" id="closeBtn">&times;</span>
+                                        <button class="nav-btn prev-btn" id="prevBtn">&#10094;</button>
+                                        <img id="lightbox-img" src="" alt="Enlarged view">
+                                        <button class="nav-btn next-btn" id="nextBtn">&#10095;</button>
+                                    </div>
+                                    <script language="javascript"></script>
+                                    <!-- InstanceEndEditable --></div>
 						</div>
 				</div>
 				</div>
@@ -108,7 +81,7 @@ function swap(wht)
 						<li>
 								<h2>The Temple</h2>
 								<ul>
-										<li><a href="#photo_gallery.php">Photo Gallery</a></li>
+										<li><a href="photo_gallery.htm">Photo Gallery</a></li>
 										<li><a href="#donate.htm">Donate to Temple</a></li>
 										<li><a href="#plan.htm">Plan (what lies where)</a></li>
 										<li><a href="#email.php">Feedback</a></li>
@@ -122,9 +95,80 @@ function swap(wht)
 </div>
 <!-- end page -->
 <!-- start footer -->
-<script>
-            $("body").text("jQuery works");
-        </script>
+<script type="text/javascript">
+    // Array of image URLs (replace with your own)
+    const images = [
+       './images/Gallery/hanuman003.jpg',
+        './images/Gallery/hanuman004.jpg',
+        './images/Gallery/hanuman005.jpg',
+        './images/Gallery/hanuman006.jpg',
+        './images/Gallery/hanuman007.jpg',
+        './images/Gallery/hanuman008.jpg',
+        './images/Gallery/hanuman009.jpg',
+        './images/Gallery/hanuman010.jpg',
+        './images/Gallery/hanuman011.jpg',
+        './images/Gallery/hanuman012.jpg',
+        './images/Gallery/hanuman013.jpg',
+        './images/Gallery/hanuman014.jpg'
+    ];
+
+    const gallery = document.getElementById("gallery");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const closeBtn = document.getElementById("closeBtn");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    let currentIndex = 0;
+
+    // Create gallery images dynamically
+    images.forEach((src, index) => {
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = "Gallery image";
+        img.loading = "lazy"; // Lazy loading for performance
+        img.addEventListener("click", () => openLightbox(index));
+        gallery.appendChild(img);
+    });
+
+    function openLightbox(index) {
+        currentIndex = index;
+        lightboxImg.src = images[currentIndex];
+        lightbox.classList.add("active");
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove("active");
+    }
+
+    function showPrev() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        lightboxImg.src = images[currentIndex];
+    }
+
+    function showNext() {
+        currentIndex = (currentIndex + 1) % images.length;
+        lightboxImg.src = images[currentIndex];
+    }
+
+    // Event listeners
+    closeBtn.addEventListener("click", closeLightbox);
+    prevBtn.addEventListener("click", showPrev);
+    nextBtn.addEventListener("click", showNext);
+
+    // Close when clicking outside image
+    lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) closeLightbox();
+    });
+
+    // Keyboard navigation
+    document.addEventListener("keydown", (e) => {
+        if (!lightbox.classList.contains("active")) return;
+        if (e.key === "ArrowLeft") showPrev();
+        if (e.key === "ArrowRight") showNext();
+        if (e.key === "Escape") closeLightbox();
+    });
+</script>
 <div id="footer">
 		<p id="legal">Bhurakhia Hanuman</p>
 </div>

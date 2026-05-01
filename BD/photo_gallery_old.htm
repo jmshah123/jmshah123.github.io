@@ -1,3 +1,22 @@
+<?php
+	$paging = '';
+	$g['Path'] = '/images/Gallery/';
+	$f = opendir(getcwd().$g['Path']);
+	while($l=readdir($f))
+	{
+		if(!('.'==$l || '..'==$l))
+		{
+			$g['Files'][]=$l;
+			$g['paging'].= "\n\r".
+					'<a href="javascript:void(0)" onclick="javascript:swap(\''.
+					count(($g['Files']))
+					.'\');">'.count(($g['Files'])).'</a> ';
+		}
+	}
+	
+	//$fl=($_REQUEST['fl'])?$_REQUEST['fl']:2;
+	//$fl=array_key_exists($_REQUEST['fl'], $g['Files'])?$fl:2;
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/Stardust.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
@@ -12,11 +31,25 @@
 <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>Official web-site of Bhurakhia Hanuman Dada Temple, INDIA</title>
+<script language="javascript" src="/js/jquery-1.7.2.min.js">
+</script>
+<script language="javascript">
+imgArray=<?php print json_encode($g['Files']);?>;
+d='';y='';
+function swap(wht)
+{
+	y=location.pathname.split('/');
+	y.length--;
+	d = document.images.photo;
+	d.src=y.join('/')+"<?php print addslashes($g['Path']) ;?>"+imgArray[--wht];
+	d.width=500;
+}
+</script>
 <!-- InstanceEndEditable --><!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link href="css/css.css" rel="stylesheet" type="text/css" />
-<!-- InstanceParam name="MainBody02" type="boolean" value="false" --><!-- InstanceParam name="PageTitle" type="boolean" value="true" --><!-- InstanceParam name="classHome" type="text" value="" --><!-- InstanceParam name="classTrust" type="text" value="" --><!-- InstanceParam name="classHistory" type="text" value="" --><!-- InstanceParam name="Marriage" type="boolean" value="true" -->
+<!-- InstanceParam name="MainBody02" type="boolean" value="true" --><!-- InstanceParam name="PageTitle" type="boolean" value="true" --><!-- InstanceParam name="classHome" type="text" value="active" --><!-- InstanceParam name="classTrust" type="text" value="" --><!-- InstanceParam name="classHistory" type="text" value="" --><!-- InstanceParam name="Marriage" type="boolean" value="false" -->
 </head>
 <body>
 <!-- start header -->
@@ -28,7 +61,7 @@
 				</div>
 				<div id="menu">
 						<ul>
-								<li class=""><a href="index.htm"> home</a></li>
+								<li class="active"><a href="index.htm"> home</a></li>
 								<li class=""><a href="trust.htm">trust</a></li>
 								<li class=""><a href="history.htm">history</a></li>
 								<li ><a href="mailto:jmshah123@gmail.com">contact </a></li>
@@ -41,81 +74,23 @@
 <div id="page">
 		<!-- start content -->
 		<div id="content">
-				<div class="post"><!-- InstanceBeginEditable name="PageTitle" -->Requirements in 'Pooja'  after Marriage<!-- InstanceEndEditable -->
+				<div class="post"><!-- InstanceBeginEditable name="PageTitle" -->
+						<div >Photo Gallery</div>
+						<div></div>
+						<!-- InstanceEndEditable -->
 						<div class="entry">
-								<div class="meta"><!-- InstanceBeginEditable name="MainBody01" --><br />The pooja to be performed by 'husband and wife' after <span class="fontRed">MARRIAGE</span> at Bhurakhia require the following <br />
-												<table width="90%" cellpadding="0" class="tableborder" align="center">
-														<tr>
-																<td>&nbsp;</td>
-														</tr>
-														<tr>
-																<th>&nbsp;</th>
-																<th>Offerings required</th>
-																<th>Quantity</th>
-														</tr>
-														<tr>
-																<td></td>
-																<td colspan="2">&nbsp;</td>
-														</tr>
-														<tr>
-																<td>1</td>
-																<td>Coins</td>
-																<td>Rs. 1.25/-</td>
-														</tr>
-														<tr>
-																<td></td>
-																<td colspan="2">&nbsp;</td>
-														</tr>
-														<tr>
-																<td>2</td>
-																<td>Shreefal (Dry Coconut)</td>
-																<td>2 (To be offered by groom and bride)</td>
-														</tr>
-														<tr>
-																<td></td>
-																<td colspan="2">&nbsp;</td>
-														</tr>
-														<tr>
-																<td>3</td>
-																<td>Flour (Wheat)</td>
-																<td>Five and a quarter 'sher'</td>
-														</tr>
-														<tr>
-																<td></td>
-																<td colspan="2">&nbsp;</td>
-														</tr>
-														<tr>
-																<td>4</td>
-																<td>Oil</td>
-																<td>Five and a quarter 'sher'</td>
-														</tr>
-														<tr>
-																<td></td>
-																<td colspan="2">&nbsp;</td>
-														</tr>
-														<tr>
-																<td>5</td>
-																<td>Jaggery</td>
-																<td>Small quantity</td>
-														</tr>
-														<tr>
-																<td></td>
-																<td colspan="2">&nbsp;</td>
-														</tr>
-												</table>
+								<div class="meta"><!-- InstanceBeginEditable name="MainBody01" -->
+										<table width="100%" border="1" bordercolor="#FFE3CE" cellpadding="3" cellspacing="5">
+												<tr>
+														<td align="right"><?php print $g['paging']; ?></td>
+												</tr>
+												<tr>
+														<td align="center"><img border="1" src="" name="photo" /></td>
+												</tr>
+										</table>
+										<script language="javascript">swap(1);</script>
 										<!-- InstanceEndEditable --></div>
 						</div>
-				</div>
-				
-				<div class="post">
-						<h1 class="title" style="font-size:18px;">Note:</h1>
-						<span>The material required for the above rites can be organised by the manager's office at Bhurakhia.<br />
-								Different families do make changes in the rites and are allowed to follow their family accepted methods and aticles.<br />
-								Some of these could be as below:</span>
-						<li>The floor mixture may be roasted or fried</li>
-						<li>Sugar may be used in place of jaggery</li>
-						<li>The thali for the lord can be made in keeping with the need</li>
-						<li>The weigh measure can be kilograms in place of 'sher'</li>
 				</div>
 				</div>
 		<!-- end content -->
@@ -147,6 +122,9 @@
 </div>
 <!-- end page -->
 <!-- start footer -->
+<script>
+            $("body").text("jQuery works");
+        </script>
 <div id="footer">
 		<p id="legal">Bhurakhia Hanuman</p>
 </div>
