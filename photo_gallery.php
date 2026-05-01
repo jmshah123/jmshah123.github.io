@@ -1,0 +1,135 @@
+<?php
+	$paging = '';
+	$g['Path'] = '/images/Gallery/';
+	$f = opendir(getcwd().$g['Path']);
+	while($l=readdir($f))
+	{
+		if(!('.'==$l || '..'==$l))
+		{
+			$g['Files'][]=$l;
+			$g['paging'].= "\n\r".
+					'<a href="javascript:void(0)" onclick="javascript:swap(\''.
+					count(($g['Files']))
+					.'\');">'.count(($g['Files'])).'</a> ';
+		}
+	}
+	
+	//$fl=($_REQUEST['fl'])?$_REQUEST['fl']:2;
+	//$fl=array_key_exists($_REQUEST['fl'], $g['Files'])?$fl:2;
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/Stardust.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META name="description" content="Official site of Bhurakhia Dada, INDIA - dedicated to Bhurakhia Dada" />
+<meta http-equiv="keywords" content="Bhurakhia Dada, Bhurakhia, Bhurakhiadada, Indian Temple, Indain culture, Indian tradition, Indian phliosophy, Indian mythology, Arrtis and poojas, pujas, festivals, Shlokas, Mantras, Upasana, Hanuman" />
+<META NAME="Robots" CONTENT="all" />
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+<META http-equiv="Pragma" content="no-cache" />
+<META http-equiv="Pragmas" content="no-cache" />
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE" />
+<META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>Official web-site of Bhurakhia Hanuman Dada Temple, INDIA</title>
+<script language="javascript">
+imgArray=<?php print json_encode($g['Files']);?>;
+d='';y='';
+function swap(wht)
+{
+	y=location.pathname.split('/');
+	y.length--;
+	d = document.images.photo;
+	d.src=y.join('/')+"<?php print addslashes($g['Path']) ;?>"+imgArray[--wht];
+	d.width=500;
+}
+</script>
+<!-- InstanceEndEditable --><!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="css/css.css" rel="stylesheet" type="text/css" />
+<!-- InstanceParam name="MainBody02" type="boolean" value="true" --><!-- InstanceParam name="PageTitle" type="boolean" value="true" --><!-- InstanceParam name="classHome" type="text" value="active" --><!-- InstanceParam name="classTrust" type="text" value="" --><!-- InstanceParam name="classHistory" type="text" value="" --><!-- InstanceParam name="Marriage" type="boolean" value="false" -->
+</head>
+<body>
+<!-- start header -->
+<div id="header-bg">
+		<div id="header">
+				<div id="logo">
+						<h1><a href="index.htm">Bhurakhia Dada</a></h1>
+						<h2>Jai Bhurakhia Hanuman Dada</h2>
+				</div>
+				<div id="menu">
+						<ul>
+								<li class="active"><a href="index.htm"> home</a></li>
+								<li class=""><a href="trust.htm">trust</a></li>
+								<li class=""><a href="history.htm">history</a></li>
+								<li ><a href="mailto:jignesh.c.shah@capgemini.com">contact </a></li>
+						</ul>
+				</div>
+		</div>
+</div>
+<!-- end header -->
+<!-- start page -->
+<div id="page">
+		<!-- start content -->
+		<div id="content">
+				<div class="post"><!-- InstanceBeginEditable name="PageTitle" -->
+						<div >Photo Gallery</div>
+						<div></div>
+						<!-- InstanceEndEditable -->
+						<div class="entry">
+								<div class="meta"><!-- InstanceBeginEditable name="MainBody01" -->
+										<table width="100%" border="1" bordercolor="#FFE3CE" cellpadding="3" cellspacing="5">
+												<tr>
+														<td align="right"><?php print $g['paging']; ?></td>
+												</tr>
+												<tr>
+														<td align="center"><img border="1" src="" name="photo" /></td>
+												</tr>
+										</table>
+										<script language="javascript">swap(1);</script>
+										<!-- InstanceEndEditable --></div>
+						</div>
+				</div>
+				</div>
+		<!-- end content -->
+		<!-- start sidebar -->
+		<div id="sidebar">
+				<ul>
+						<li>
+								<h2>Rites & Rituals</h2>
+								<ul>
+										<li><a href="marriage.htm">Marriage</a></li>
+										<li><a href="child_birth.htm">Child Birth</a></li>
+										<li><a href="niece.htm">Niece (Bhanej)</a></li>
+										<li><a href="kali_chaturdashi.htm">Kali Chaturdashi</a></li>
+								</ul>
+						<li>
+								<h2>The Temple</h2>
+								<ul>
+										<li><a href="photo_gallery.php">Photo Gallery</a></li>
+										<li><a href="#donate.htm">Donate to Temple</a></li>
+										<li><a href="#plan.htm">Plan (what lies where)</a></li>
+										<li><a href="email.php">Feedback</a></li>
+								</ul>
+						</li>
+						</li>
+				</ul>
+		</div>
+		<!-- end sidebar -->
+		<div style="clear: both;">Jai Bhurakhia Hanuman Dada</div>
+</div>
+<!-- end page -->
+<!-- start footer -->
+<div id="footer">
+		<p id="legal">Bhurakhia Hanuman</p>
+</div>
+<!-- end footer --><script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-3664370-3");
+pageTracker._trackPageview();
+} catch(err) {}</script></body>
+<!-- InstanceEnd --></html>
